@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Persons</title>
+    <script src="persons.js" defer></script>
+    <script src="utils.js" defer></script>
+    <link rel="stylesheet" href="per.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- LEFT: FORM -->
+    <div class="form">
+        <label>ID:
+            <input type="text" id="id">
+        </label>
+        <label>First name:
+            <input type="text" id="firstName">
+        </label>
+        <label>Last name:
+            <input type="text" id="lastName">
+        </label>
+        <label>Birthdate:
+            <input type="date" id="birthdate">
+        </label>
+
+        <button id="add">Add</button>
+    </div>
+
+    <!-- RIGHT: LIST + STATS -->
+    <div class="books">
+        <h1>Persons</h1>
+
+        <ol id="result"></ol>
+
+        <div id="stats">
+            <h2>Statistics</h2>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

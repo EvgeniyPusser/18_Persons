@@ -150,3 +150,36 @@ li {
     font-size: 14px;
     font-weight: bold;
 }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 400px;
+    max-width: 90%;
+}
+
+.modal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modal td {
+    padding: 6px;
+}
+
+.modal input {
+    width: 100%;
+}
+

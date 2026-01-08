@@ -69,12 +69,11 @@ function renderObjectAsTable(obj, onSave, labels = {}) {
         saveBtn.remove();
     };
 
-    return { table, saveBtn };
+    return {table, saveBtn};
 }
 
 
-
-function createField({ label, name, type = 'text', value = '' }) {
+function createField({label, name, type = 'text', value = ''}) {
     const wrapper = document.createElement('div');
 
     const labelEl = document.createElement('label');
@@ -82,8 +81,11 @@ function createField({ label, name, type = 'text', value = '' }) {
 
     const input = document.createElement('input');
     input.type = type;
-    input.name = name;
+    input.name = 'address' + name;
     input.value = value;
+    input.autocomplete = 'new-password';
+
+
 
     labelEl.append(input);
     wrapper.append(labelEl);
@@ -114,37 +116,76 @@ function createFieldsFromObject(obj) {
         fields
     };
 }
-
 function showAddressModal(person) {
-    if (!person.address) {
-        person.address = new Address('', '', '', '', '', '', '');
-    }
-
     const overlay = document.createElement('div');
     overlay.className = 'modal-overlay';
 
     const modal = document.createElement('div');
     modal.className = 'modal';
 
-    const { table, saveBtn } = renderObjectAsTable(
-        person.address,
-        (updatedAddress) => {
-            Object.assign(person.address, updatedAddress);
-            overlay.remove();
-        }
-    );
+    if (!person.address) {
+        person.address = new Address('', '', '', '', '', '', '');
 
-    modal.append(table, saveBtn);
+        const { table, saveBtn } = renderObjectAsTable(
+            person.address,
+            (updatedAddress) => {
+                Object.assign(person.address, updatedAddress);
+                overlay.remove();
+            }
+        );
+
+        modal.append(table, saveBtn);
+    } else {
+        const viewTable = renderObjectAsViewTable(person.address);
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+
+        editBtn.onclick = () => {
+            modal.innerHTML = '';
+
+            const { table, saveBtn } = renderObjectAsTable(
+                person.address,
+                (updatedAddress) => {
+                    Object.assign(person.address, updatedAddress);
+                    overlay.remove();
+                }
+            );
+
+            modal.append(table, saveBtn);
+        };
+
+        modal.append(viewTable, editBtn);
+    }
+
     overlay.append(modal);
-
-    // закрытие по клику вне окна
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.remove();
-        }
-    });
-
     document.body.append(overlay);
+
+    overlay.onclick = (e) => {
+        if (e.target === overlay) overlay.remove();
+    };
 }
+
+
+
+    function renderObjectAsViewTable(obj) {
+        const table = document.createElement('table');
+        table.border = '1';
+
+        Object.entries(obj).forEach(([key, value]) => {
+            const tr = document.createElement('tr');
+
+            const tdKey = document.createElement('td');
+            tdKey.textContent = key;
+
+            const tdValue = document.createElement('td');
+            tdValue.textContent = value || '—';
+
+            tr.append(tdKey, tdValue);
+            table.append(tr);
+        });
+
+        return table;
+    }
 
 

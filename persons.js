@@ -17,17 +17,8 @@ addPerson.onclick = function () {
             new Date(birthday.value) // FIX
         );
         persons.push(person);
-        // const addressFields = createFieldsFromObject(person.address);
-        // document.body.append(addressFields.container);
-        // const saveAddressBtn = createButton(
-        //     'Save address',
-        //     () => {
-        //         Object.keys(addressFields.fields).forEach(key => {
-        //             person.address[key] = addressFields.fields[key].value;
-        //         });
-        //         console.log('Saved address:', person.address);
-        //     }
-        // );
+
+
 
         const li = document.createElement('li');
         const buttonDel = createButton(
@@ -44,61 +35,16 @@ addPerson.onclick = function () {
             'Удалён пользователь: '  // строка
         );
 
-        // const buttonAddress = createButton(
-        //     'Address',
-        //     (e, person) => {
-        //         if (!person.address) {
-        //             person.address = new Address('', '', '', '', '', '', '');
-        //         }
-        //         const { container, fields } = createFieldsFromObject(person.address);
-        //         const saveBtn = createButton('Save', () => {
-        //             Object.keys(fields).forEach(key => {
-        //                 person.address[key] = fields[key].value;
-        //             });
-        //             container.remove();
-        //         });
-        //         document.body.append(container, saveBtn);
-        //     },
-        //     person
-        // );
-        //
-        // const buttonAddress = createButton(
-        //     'Address',
-        //     (e, person) => {
-        //         if (!person.address) {
-        //             person.address = new Address('', '', '', '', '', '', '');
-        //         }
-        //
-        //         const { table, saveBtn } = renderObjectAsTable(
-        //             person.address,
-        //             (updatedAddress) => {
-        //                 Object.assign(person.address, updatedAddress);
-        //             },
-        //             addressLabels // ← ЛЕЙБЛЫ
-        //         );
-        //
-        //         document.body.append(table, saveBtn);
-        //     },
-        //     person
-        // );
-
         const buttonAddress = createButton(
             'Address',
             (e, person) => {
+                // e.stopPropagation();
                 showAddressModal(person);
             },
             person
         );
-
-
-
-
-
-        // li.append(person.toString(), buttonDel);
         li.append(person.toString(), buttonDel, buttonAddress);
-
         result.appendChild(li);
-        document.body.append(saveAddressBtn);
         showStats();
     } else {
         alert(`Person with ID = ${id.value} exists`); // FIX
